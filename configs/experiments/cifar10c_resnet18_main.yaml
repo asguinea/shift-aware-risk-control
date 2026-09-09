@@ -1,0 +1,77 @@
+project:
+  name: shift-aware-risk-control
+  mode: cifar_c_experiment
+  seed: 123
+
+paths:
+  output_root: outputs/runs
+  run_name: cifar10c_resnet18_main
+  cache_dir: outputs/caches/cifar10c_resnet18_subset
+
+cifar_cache:
+  build_if_missing: false
+  overwrite_cache: false
+  config_path: configs/cifar10c_resnet18.yaml
+
+windowing:
+  window_size: 200
+  stride: 200
+  group_by_context: true
+  sort_by: time_index
+  drop_incomplete: true
+
+signatures:
+  include_label_diagnostics: true
+
+encoder:
+  method: pca
+  n_components: 4
+  whiten: false
+  random_seed: 123
+
+risk_control:
+  score_column: confidence
+  accept_if: greater_equal
+  risk_budget: 0.10
+  delta: 0.05
+  bound: empirical_bernstein
+  min_coverage: 0.0
+  loss:
+    loss_name: accepted_error
+    deferral_cost: 0.0
+
+splits:
+  calibration_contexts:
+    - gaussian_noise_s1
+    - brightness_s1
+    - contrast_s1
+    - gaussian_noise_s3
+    - brightness_s3
+    - contrast_s3
+  evaluation_contexts: all
+
+ct_crc:
+  metric: euclidean
+  l_hat: auto
+  l_hat_quantile: 0.95
+  epsilon_k: 0.0
+  bound_margin: 0.03
+  bound_multiplier: 1.25
+  fallback_to_global: true
+
+cw_crc:
+  metric: euclidean
+  kernel: gaussian
+  bandwidth: null
+  target_effective_sample_size: 12
+  min_bandwidth: 1.0e-6
+  max_bandwidth: null
+  bandwidth_grid_size: 30
+  example_weight_aggregation: mean
+  finite_sample_correction: empirical_bernstein
+  normalize_weights: true
+  bound_margin: 0.03
+  bound_multiplier: 1.25
+
+outputs:
+  save_intermediate: true

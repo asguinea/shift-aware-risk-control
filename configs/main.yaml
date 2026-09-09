@@ -1,0 +1,65 @@
+project:
+  name: shift-aware-risk-control
+  mode: full
+  seed: 123
+
+paths:
+  output_root: outputs
+  run_name: main_run
+
+logging:
+  level: INFO
+
+pipeline:
+  output_root: outputs/pipeline_runs
+  run_name: local_main
+  stop_on_error: true
+
+  stages:
+    smoke: true
+    synthetic_cache: true
+    synthetic_experiment: true
+    cifar10c_cache: false
+    cifar10c_experiment: false
+    cifar100c_cache: false
+    cifar100c_experiment: false
+    wilds_cache: false
+    wilds_experiment: false
+    artifacts: true
+    tests: false
+
+  configs:
+    smoke: configs/smoke.yaml
+    synthetic_cache: configs/synthetic.yaml
+    synthetic_experiment: configs/experiments/synthetic_main.yaml
+    cifar10c_cache: configs/cifar10c.yaml
+    cifar10c_experiment: configs/experiments/cifar10c_main.yaml
+    cifar100c_cache: configs/cifar100c.yaml
+    cifar100c_experiment: configs/experiments/cifar100c_main.yaml
+    wilds_cache: configs/wilds_civilcomments.yaml
+    wilds_experiment: configs/experiments/wilds_civilcomments_main.yaml
+    artifacts: configs/artifacts.yaml
+
+  overwrite:
+    synthetic_cache: true
+    synthetic_experiment: true
+    cifar10c_cache: false
+    cifar10c_experiment: true
+    cifar100c_cache: false
+    cifar100c_experiment: true
+    wilds_cache: false
+    wilds_experiment: true
+    artifacts: true
+
+  download:
+    cifar10c_cache: false
+    cifar100c_cache: false
+    wilds_cache: false
+
+datasets: {}
+cache: {}
+signatures: {}
+embeddings: {}
+risk_control: {}
+evaluation: {}
+artifacts: {}

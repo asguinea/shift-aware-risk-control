@@ -1,0 +1,20 @@
+project:
+  name: shift-aware-risk-control
+  mode: synthetic
+  seed: 123
+
+paths:
+  output_root: outputs
+  cache_dir: outputs/caches/synthetic_default
+
+logging:
+  level: INFO
+
+synthetic:
+  dataset_name: synthetic_contextual_shift
+  num_classes: 3
+  input_dim: 2
+  n_train: 3000
+  n_per_context: 600
+  random_seed: 123
+  source_noise_scale: 0.8

@@ -1,0 +1,31 @@
+project:
+  name: shift-aware-risk-control
+  mode: officehome_cache
+  seed: 123
+
+paths:
+  data_root: data/officehome
+  cache_dir: outputs/caches/officehome_resnet18_subset
+
+logging:
+  level: INFO
+
+officehome:
+  model_backend: torchvision_resnet18_features
+  source_domains:
+    - real_world
+    - product
+  eval_domains:
+    - art
+    - clipart
+    - product
+    - real_world
+  max_train_examples: 12000
+  max_eval_examples:
+  torch_batch_size: 64
+  torch_device: auto
+  torch_pretrained: true
+  calibrate_probabilities: true
+  calibration_fraction: 0.2
+  calibration_method: sigmoid
+  random_seed: 123

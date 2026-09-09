@@ -1,0 +1,75 @@
+project:
+  name: shift-aware-risk-control
+  mode: synthetic_experiment
+  seed: 123
+
+paths:
+  output_root: outputs/runs
+  run_name: synthetic_stronger_main
+  cache_dir: outputs/caches/synthetic_stronger_shift
+
+synthetic_cache:
+  build_if_missing: true
+  overwrite_cache: false
+  config_path: configs/synthetic_stronger_shift.yaml
+
+windowing:
+  window_size: 200
+  stride: 200
+  group_by_context: true
+  sort_by: time_index
+  drop_incomplete: true
+
+signatures:
+  include_label_diagnostics: true
+
+encoder:
+  method: pca
+  n_components: 4
+  whiten: false
+  random_seed: 123
+
+risk_control:
+  score_column: confidence
+  accept_if: greater_equal
+  risk_budget: 0.10
+  delta: 0.05
+  bound: empirical_bernstein
+  min_coverage: 0.0
+  loss:
+    loss_name: accepted_error
+    deferral_cost: 0.0
+
+splits:
+  calibration_contexts:
+    - source
+    - covariate_s1
+    - label_s1
+    - mixture_s1
+  evaluation_contexts: all
+
+ct_crc:
+  metric: euclidean
+  l_hat: auto
+  l_hat_quantile: 0.95
+  epsilon_k: 0.0
+  bound_margin: 0.01
+  bound_multiplier: 1.1
+  fallback_to_global: true
+
+cw_crc:
+  metric: euclidean
+  kernel: gaussian
+  bandwidth: null
+  target_effective_sample_size: 6
+  min_bandwidth: 1.0e-6
+  max_bandwidth: null
+  bandwidth_grid_size: 30
+  example_weight_aggregation: mean
+  finite_sample_correction: empirical_bernstein
+  normalize_weights: true
+  bound_margin: 0.01
+  bound_multiplier: 1.1
+
+outputs:
+  save_intermediate: true

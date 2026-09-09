@@ -1,0 +1,27 @@
+project:
+  name: shift-aware-risk-control
+  mode: wilds_civilcomments_cache
+  seed: 123
+
+paths:
+  data_root: data/wilds
+  cache_dir: outputs/caches/wilds_civilcomments_subset
+
+logging:
+  level: INFO
+
+wilds:
+  dataset: civilcomments
+  source: csv
+  download: false
+  model_backend: sklearn_tfidf
+  train_subset_size: 20000
+  eval_subset_size: 5000
+  random_seed: 123
+  text_column: text
+  label_column: label
+  context_column: group_id
+  max_features: 20000
+  ngram_range:
+    - 1
+    - 2

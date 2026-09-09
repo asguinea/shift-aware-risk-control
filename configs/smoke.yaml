@@ -1,0 +1,11 @@
+project:
+  name: shift-aware-risk-control
+  mode: smoke
+  seed: 123
+
+paths:
+  output_root: outputs
+  run_name: smoke_run
+
+logging:
+  level: INFO

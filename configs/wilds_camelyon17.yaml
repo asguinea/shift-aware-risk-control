@@ -1,0 +1,27 @@
+project:
+  name: shift-aware-risk-control
+  mode: wilds_camelyon17_cache
+  seed: 123
+
+paths:
+  data_root: data/wilds
+  cache_dir: outputs/caches/wilds_camelyon17_resnet18_subset
+
+logging:
+  level: INFO
+
+wilds:
+  dataset: camelyon17
+  source: wilds
+  download: true
+  model_backend: torchvision_resnet18_features
+  random_seed: 123
+  context_column: domain_id
+  max_train_examples: 10000
+  max_eval_examples: 10000
+  torch_batch_size: 64
+  torch_device: auto
+  torch_pretrained: true
+  eval_splits:
+    - val
+    - test

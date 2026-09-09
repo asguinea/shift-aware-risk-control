@@ -1,0 +1,32 @@
+project:
+  name: shift-aware-risk-control
+  mode: cifar100c_cache
+  seed: 123
+
+paths:
+  data_root: data
+  cache_dir: outputs/caches/cifar100c_resnet18_subset
+
+logging:
+  level: INFO
+
+cifar_c:
+  dataset: cifar100c
+  download: false
+  model_backend: torchvision_resnet18
+  feature_mode: resnet18_features
+  torch_batch_size: 128
+  torch_device: auto
+  torch_pretrained: true
+  feature_cache_dir: null
+  corruptions:
+    - gaussian_noise
+    - brightness
+    - contrast
+  severities:
+    - 1
+    - 3
+    - 5
+  max_examples_per_context: 1000
+  train_subset_size: 30000
+  random_seed: 123

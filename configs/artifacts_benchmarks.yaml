@@ -1,0 +1,37 @@
+project:
+  name: shift-aware-risk-control
+  mode: artifacts
+  seed: 123
+
+paths:
+  output_root: outputs/benchmark_artifacts
+  run_dirs:
+    - outputs/runs/synthetic_stronger_main
+    - outputs/runs/cifar10c_resnet18_main
+    - outputs/runs/cifar100c_resnet18_main
+    - outputs/runs/wilds_camelyon17_main
+  label_efficiency_dirs:
+    - outputs/runs/synthetic_label_efficiency
+    - outputs/runs/cifar10c_resnet18_label_efficiency
+    - outputs/runs/cifar100c_resnet18_label_efficiency
+  online_trace_dirs:
+    - outputs/runs/cifar10c_resnet18_online_trace
+
+artifacts:
+  figure_format: pdf
+  table_format: tex
+  include_missing_runs: false
+  precision: 3
+
+tables:
+  make_main_results: true
+  make_bound_diagnostics: true
+  make_dataset_summary: true
+  make_label_efficiency: true
+
+figures:
+  make_method_comparison: true
+  make_context_smoothness: true
+  make_online_shift_trace: true
+  make_bound_diagnostics: true
+  make_label_efficiency: true

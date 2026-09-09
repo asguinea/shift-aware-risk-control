@@ -1,0 +1,30 @@
+project:
+  name: shift-aware-risk-control
+  mode: artifacts
+  seed: 123
+
+paths:
+  output_root: outputs/artifacts
+  run_dirs:
+    - outputs/runs/synthetic_main
+  label_efficiency_dirs: []
+  online_trace_dirs: []
+
+artifacts:
+  figure_format: pdf
+  table_format: tex
+  include_missing_runs: false
+  precision: 3
+
+tables:
+  make_main_results: true
+  make_bound_diagnostics: true
+  make_dataset_summary: true
+  make_label_efficiency: true
+
+figures:
+  make_method_comparison: true
+  make_context_smoothness: true
+  make_online_shift_trace: true
+  make_bound_diagnostics: true
+  make_label_efficiency: true
